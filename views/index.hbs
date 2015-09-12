@@ -43,7 +43,7 @@
                 <ul>
                     <li class="filter" data-filter="all">Показать все</li>
                     {{#each cat}}
-                        <li class="filter" data-filter=".{{ this.cls }}">{{ this.name }}</li>
+                        <li class="filter" data-filter=".{{ cls }}">{{ name }}</li>
                     {{/each}}
                 </ul>
             </div>
@@ -54,14 +54,14 @@
 <main class="container">
     <div class="row">
         <ul class="collapsible popout" data-collapsible="accordion">
-            {{#each itemArray}}
-                <h4 class="mix cat1 light center">{{ this.name }}</h4>
-                {{#each this.qat}}
-                    <li class="mix {{ this.cls }}">
-                        <div class="collapsible-header">{{ this.q }}</div>
-                        <div class="collapsible-body"><p>{{{ this.a }}}</p></div>
-                    </li>
-                {{/each}}
+            {{#each cat}}
+                <h4 class="mix {{ cls }} light center">{{ name }}</h4>
+                    {{#each data}}
+                        <li class="mix {{ cls }}">
+                            <div class="collapsible-header">{{ q }}</div>
+                            <div class="collapsible-body"><p>{{{ a }}}</p></div>
+                        </li>
+                    {{/each}}
             {{/each}}
         </ul>
     </div>

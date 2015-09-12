@@ -11,13 +11,16 @@ router.get('/', function(req, res) {
     var cat = [];
     var catN = [];
 
+      var i = 0;
+
     rowData.forEach(function(item) {
+        item['id'] = i++;
         if(cat.indexOf(item['h']) == -1) {
             cat.push(item['h']);
         }
     });
 
-      var i = 1;
+      i = 1;
       cat.forEach(function(item) {
           catN.push({name: item, cls: 'cat' + i++, data: []});
       });
@@ -25,12 +28,12 @@ router.get('/', function(req, res) {
       rowData.forEach(function(item) {
           catN.forEach(function(elem) {
               if(elem.name == item['h']) {
-                  elem.data.push({a: item['a'], q: item['q'], t:item['t'], cls: elem.cls, c: item['h']});
+                  elem.data.push({id: item['id'], a: item['a'], q: item['q'], t:item['t'], cls: elem.cls, c: item['h']});
               }
           });
       });
 
-    res.render('index', { title: 'FAQ ФКН', cat: catN });
+    res.render('index', { title: 'FAQ ФКН', cat: catN, data: JSON.stringify(rowData) });
   });
 
 

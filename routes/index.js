@@ -10,8 +10,7 @@ router.get('/', function(req, res) {
 
     var cat = [];
     var catN = [];
-
-      var i = 0;
+    var i = 0;
 
     rowData.forEach(function(item) {
         item['id'] = i++;

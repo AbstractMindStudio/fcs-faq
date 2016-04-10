@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width">
     <meta name="description"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio in facere libero, laborum, iste ipsum rem voluptates reprehenderit autem, sapiente nobis quasi veniam cumque eius suscipit. Modi dolore vero cupiditate?"/>
+          content="Часто задаваемые вопросы о ФКН"/>
 
     <link rel="stylesheet" href="styles/main.css">
 
@@ -51,11 +51,13 @@
 </div>
 <main class="container">
     <div class="row">
-        <ul class="collapsible popout" data-collapsible="accordion">
+        <ul class="collapsible popout" id="ul-s" data-collapsible="accordion">
+        </ul>
+        <ul class="collapsible popout" id="ul" data-collapsible="accordion">
             {{#each cat}}
                 <h4 class="mix {{ cls }} light center">{{ name }}</h4>
                     {{#each data}}
-                        <li class="mix {{ cls }}">
+                        <li class="mix {{ cls }}" data-id="{{ id }}">
                             <div class="collapsible-header">{{ q }}</div>
                             <div class="collapsible-body"><p>{{{ a }}}</p></div>
                         </li>
@@ -86,13 +88,14 @@
     <div class="footer-copyright">
         <div class="container">
             <div class="github left col s12 m6 l6">View on <a href="https://github.com/AbstractMindStudio/fcs-faq"><img
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABU0lEQVQ4T52TjVECQQxGvQrUCsQKxAo8KlArECoQK1ArUDo4KhArECoQKxAq8KzgfI/JOsvx44w7k7nNl+RLLskWB1tO0zR94AukE+YF32lRFOO2e5EDEfgEdrSNGKxG7iCqkv2XgGDBmx2BbbiCZCC4IiB4yMfMS0tFrpDDVtQ3ukm0nSADKykIttyvcB4BDgPrcpfMBCWfOXrN/Zn7bfgfS/CAch/AK05m2Hnwn2C8DIdHCcxixz3nEMz/IOhifw+fmQR2dvW/BK9NZRcRMU3YagmS8h+CAwkWsNlVzylFqO/rQf4LSwnypkwguN5TuhN7QcrwGUug8oaMwmA/KmScqsGng+6S9RHv6fTSIk1BzpAeYkVmcg8WegbBZ6uyGfYyERjg+ByPG+Zk1k7ebAxurAnq/C1IkirZmEhG8IFfmZJszD1eZN/y8hJi4XxEVY7/AMbVmPc7LebyAAAAAElFTkSuQmCC"/>Github</a>
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABU0lEQVQ4T52TjVECQQxGvQrUCsQKxAo8KlArECoQK1ArUDo4KhArECoQKxAq8KzgfI/JOsvx44w7k7nNl+RLLskWB1tO0zR94AukE+YF32lRFOO2e5EDEfgEdrSNGKxG7iCqkv2XgGDBmx2BbbiCZCC4IiB4yMfMS0tFrpDDVtQ3ukm0nSADKykIttyvcB4BDgPrcpfMBCWfOXrN/Zn7bfgfS/CAch/AK05m2Hnwn2C8DIdHCcxixz3nEMz/IOhifw+fmQR2dvW/BK9NZRcRMU3YagmS8h+CAwkWsNlVzylFqO/rQf4LSwnypkwguN5TuhN7QcrwGUug8oaMwmA/KmScqsGng+6S9RHv6fTSIk1BzpAeYkVmcg8WegbBZ6uyGfYyERjg+ByPG+Zk1k7ebAxurAnq/C1IkirZmEhG8IFfmZJszD1eZN/y8hJi4XxEVY7/AMbVmPc7LebyAAAAAElFTkSuQmCC"/>GitHub</a>
             </div>
             <div class="ams right col s12 m6 l6"><span class="bottle"></span>Сделано с <span class="heartbeat"></span> в
                 <a href="http://abstractmind.ru/">Abstract Mind Studio</a></div>
         </div>
     </div>
 </footer>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter36679930 = new Ya.Metrika({ id:36679930, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/36679930" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 <script src="scripts/jquery.min.js"></script>
 <script src="scripts/mixitup.min.js"></script>
 <script src="scripts/materialize.js"></script>
@@ -116,6 +119,8 @@
 
 
         var data = {{{ data }}};
+
+        console.log(data);
         var options = {
           keys: ['t'],
           id: 'id'
@@ -123,10 +128,31 @@
         var f = new Fuse(data, options);
         var result;
 
-        $('#search').keydown(function() {
+        $('#search').keyup(function() {
             result = f.search($(this).val());
 
-            console.log(result);
+            if(result.length != 0) {
+                $('#ul').css('display', 'none');
+            }
+
+            if($(this).val() == '') {
+                $('#ul-s').html('');
+                $('#ul').css('display', 'block');
+            }
+
+            $('#ul-s').html('');
+
+            for (var i = 0; i < result.length; i++) {
+                $('[data-id=' + result[i] + ']').clone().css('display', 'block').appendTo("#ul-s");
+            }
+            $('.collapsible').collapsible({
+                accordion: true,
+            });
+        })
+
+        $('.filter').click(function() {
+            $('#ul-s').html('');
+            $('#ul').css('display', 'block');
         });
     });
 </script>

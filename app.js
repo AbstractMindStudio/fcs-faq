@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-hbs');
+var debug = require('debug')('fcs-faq');
 var routes = require('./routes/index');
 
 var app = express();
@@ -56,6 +57,12 @@ app.use(function (err, req, res, next) {
         message: err.message,
         error: {}
     });
+});
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
 });
 
 module.exports = app;

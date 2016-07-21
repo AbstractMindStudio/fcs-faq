@@ -3,7 +3,7 @@ var GoogleSpreadsheet = require("google-spreadsheet");
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  var mySheet = new GoogleSpreadsheet('1oSAwkp1ADrbZ2McRDPP-fpncQ7E4sWEHfxyeMlE5ABo');
+  var mySheet = new GoogleSpreadsheet('17yhbZ9XTUsfBSsnUS1pwcnXmV4RU8WHVEB-ToZJmfpI');
 
   mySheet.getRows(1, function(err, rowData) {
 
